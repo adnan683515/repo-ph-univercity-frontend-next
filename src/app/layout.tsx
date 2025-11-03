@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navber";
 import { ReduxProvider } from "@/providers/ReduxProvider";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,11 +33,15 @@ export default function RootLayout({
 
         <ReduxProvider>
 
+
+
           <Navbar></Navbar>
           <div className="min-h-screen">
             {children}
           </div>
-          
+
+
+
         </ReduxProvider>
 
       </body>

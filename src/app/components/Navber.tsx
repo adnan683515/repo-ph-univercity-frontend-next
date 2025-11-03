@@ -1,13 +1,29 @@
 "use client"
-"use client";
+
+import { Logout } from "@/Redux/Features/auth/authSlice";
+import { useAppDispatch, useAppSelector } from "@/Redux/Features/hook";
+import Link from "next/link";
+
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+
 
 const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
+
     const toggleMenu = () => setMenuOpen(!menuOpen);
+    const { user } = useAppSelector((state) => state?.auth)
+
+    const dispatach = useAppDispatch()
+
+    const lgoutuser = () => {
+
+        dispatach(Logout())
+
+    }
+
 
     return (
         <nav className="bg-black text-white px-6 py-4 shadow-lg">
@@ -53,12 +69,20 @@ const Navbar = () => {
 
                 {/* Right Side Buttons */}
                 <div className="hidden md:flex gap-4">
-                    <button className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">
-                        Login
-                    </button>
-                    <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-200 transition">
-                        Sign In
-                    </button>
+                    {
+                        user ? <div className="flex gap-2">
+                            <Link href='/Course' className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">
+                                My Course
+                            </Link>
+
+                            <p onClick={lgoutuser} className="border border-white px-4 py-2 rounded-lg bg-rose-700 hover:text-black transition">
+                                Logout
+                            </p>
+                        </div> : <Link href='/Login' className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">
+                            Login
+                        </Link>
+                    }
+
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -79,9 +103,7 @@ const Navbar = () => {
                         <button className="border border-white px-4 py-2 rounded-lg hover:bg-white hover:text-black transition">
                             Login
                         </button>
-                        <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-200 transition">
-                            Sign In
-                        </button>
+
                     </div>
                 </div>
             )}
